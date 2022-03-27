@@ -54,7 +54,6 @@
                 android:layout_height="wrap_content"
                 android:text="Log in"
                 android:textSize="25sp"
-                android:textStyle="bold"
                 android:id="@+id/loginButton"
                 android:backgroundTint="@color/purple_200"
                 />

@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
-
+    //check if user is already logged in
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         loginPassword =findViewById(R.id.loginPassword);
         loginButton = findViewById(R.id.loginButton);
         firebaseAuth =FirebaseAuth.getInstance();
-
+        checkUser();
         progressDialog = new ProgressDialog(LoginActivity.this);
         progressDialog.setTitle("Log in");
         progressDialog.setMessage("Logging In");
@@ -98,5 +98,18 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this,"Log in failed",Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    void checkUser(){
+        //check user if already logged in
+        //if already logged in open profile activity
+
+        //get the current user
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(firebaseUser != null){
+            //User already logged in
+            startActivity(new Intent(LoginActivity.this,ProfileActivity.class));
+            finish();
+        }
     }
 }
