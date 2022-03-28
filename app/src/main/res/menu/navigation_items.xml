@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/optProfile"
+        android:title="My Profile"
+        android:icon="@drawable/ic_person"
+        />
+    <item
+        android:id="@+id/optDoctors"
+        android:title="Doctors"
+        android:icon="@drawable/ic_doctor"
+        />
+    <item
+        android:id="@+id/optAppointments"
+        android:title="Appointments"
+        android:icon="@drawable/ic_appointment"
+        />
+    <item
+        android:id="@+id/optEmergency"
+        android:title="Emergency"
+        android:icon="@drawable/ic_emergency"
+        />
+    <item
+        android:id="@+id/optAmbulance"
+        android:title="Ambulance"
+        android:icon="@drawable/ic_ambulance"
+        />
+    <item
+        android:id="@+id/optAboutUs"
+        android:title="About us"
+        android:icon="@drawable/ic_aboutus"
+        />
+    <item
+        android:id="@+id/optLogOut"
+        android:title="Log Out"
+        android:icon="@drawable/ic_logout"
+        />
+</menu>

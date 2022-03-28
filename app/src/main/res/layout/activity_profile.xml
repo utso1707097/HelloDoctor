@@ -1,40 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProfileActivity"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start"
+    android:id="@+id/drawerLayout">
 
-    <TextView
+    <include layout="@layout/app_bar_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="logged in as"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:layout_marginBottom="20dp"
-        />
+        android:layout_height="match_parent"/>
 
-    <TextView
-        android:id="@+id/showEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:layout_marginBottom="20dp"
-        style="@style/TextAppearance.MaterialComponents.Headline5"
-
-        />
-
-    <Button
+    <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        android:id="@+id/logoutButton"
-        android:backgroundTint="@color/purple_200"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        android:id="@+id/navigationView"
+        app:headerLayout="@layout/header_layout"
+        app:menu="@menu/navigation_items"
         />
 
-</LinearLayout>
+
+
+</androidx.drawerlayout.widget.DrawerLayout>
