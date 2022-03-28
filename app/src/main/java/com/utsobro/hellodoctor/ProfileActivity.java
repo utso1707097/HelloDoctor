@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.transition.Slide;
 
 import android.content.Intent;
@@ -68,7 +71,8 @@ public class ProfileActivity extends AppCompatActivity {
                     Toast.makeText(ProfileActivity.this,"AboutUs",Toast.LENGTH_SHORT).show();
                 }
                 else if(id == R.id.optLogOut){
-                    Toast.makeText(ProfileActivity.this,"LogOut",Toast.LENGTH_SHORT).show();
+                    //logout fragment implementation
+                    loadFragment(new LogoutFragment());
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
 
@@ -91,5 +95,12 @@ public class ProfileActivity extends AppCompatActivity {
             //app closed
             super.onBackPressed();
         }
+    }
+    private void loadFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.container,fragment);
+        fragmentTransaction.commit();
+
     }
 }
