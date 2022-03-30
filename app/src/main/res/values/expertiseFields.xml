@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="expertise_fileds">
+        <item>Select your speciality</item>
+        <item>Medicine</item>
+        <item>Pathology</item>
+        <item>Psychiatry</item>
+        <item>Surgery</item>
+        <item>Dermatology</item>
+        <item>Otolaryngologist</item>
+        <item>Gastrology</item>
+    </string-array>
+</resources>

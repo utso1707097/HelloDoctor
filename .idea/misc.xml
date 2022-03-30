@@ -5,10 +5,19 @@
       <map>
         <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/drawable/edit.xml" value="0.206" />
         <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/drawable/header_layout.xml" value="0.1875" />
+        <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/drawable/ic_aboutus.xml" value="0.1855" />
+        <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/drawable/ic_appointment.xml" value="0.1855" />
+        <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/drawable/ic_back.xml" value="0.1865" />
+        <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/drawable/ic_doctor.xml" value="0.1865" />
+        <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/drawable/ic_email.xml" value="0.1855" />
+        <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/drawable/ic_expert.xml" value="0.1875" />
+        <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/drawable/ic_logout.xml" value="0.1855" />
+        <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/drawable/ic_password.xml" value="0.1855" />
+        <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/drawable/ic_person.xml" value="0.1855" />
         <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/layout/activity_home.xml" value="0.2109375" />
         <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/layout/activity_profile.xml" value="0.136" />
+        <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/layout/activity_profile.xml" value="0.16799999999999998" />
         <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/layout/activity_register.xml" value="0.21197916666666666" />
         <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/layout/app_bar_main.xml" value="0.23229166666666667" />
         <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/layout/content_profile.xml" value="0.23229166666666667" />

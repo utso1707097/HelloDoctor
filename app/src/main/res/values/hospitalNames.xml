@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="hospital_names">
+        <item>Select hospital name</item>
+        <item>Dhaka Medical College</item>
+        <item>Khulna Medical College</item>
+        <item>Rajsahi Medical College</item>
+        <item>Rangpur Medical College</item>
+        <item>Dinajpur Medical College</item>
+        <item>Barishal Medical College</item>
+        <item>Chittagong Medical College</item>
+    </string-array>
+</resources>
