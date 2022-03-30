@@ -43,9 +43,8 @@ public class RegisterActivity extends AppCompatActivity {
     private ImageView profilePic;
     private final int GALLERY_REQ_CODE=1000;
     private Uri imageUri;
-    private FirebaseStorage firebaseStorage;
-    private StorageReference storageReference;
-
+    private FirebaseStorage storage;
+    private StorageReference storageRef;
     //Doctor registration
     private Switch switchDoctor;
     private Spinner hospitalName,expertIn;
@@ -62,16 +61,15 @@ public class RegisterActivity extends AppCompatActivity {
         retypePassword = findViewById(R.id.retypePassword);
         registerBtn = findViewById(R.id.registerBtn);
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseStorage=FirebaseStorage.getInstance();
-
+        storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReference();
 
         progressDialog = new ProgressDialog(RegisterActivity.this);
         progressDialog.setTitle("Please wait");
         progressDialog.setMessage("Creating your account");
         progressDialog.setCanceledOnTouchOutside(false);
 
-        //profile pic
-        firebaseStorage = FirebaseStorage.getInstance();
+        //profile pic selection
         profilePic = findViewById(R.id.profilePic);
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,6 +149,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this,"password is too short",Toast.LENGTH_SHORT).show();
                 }
                 else if(TextUtils.equals(password1,password2)){
+                    uploadImage();
                     regis(email1,password1);
                 }
                 else{
@@ -185,7 +184,13 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
     }
-    //Profile Picture setup
+    //Profile Picture upload
+    private void uploadImage(){
+        if(imageUri != null){
+            StorageReference ref = storageRef.child("images/" + UUID.randomUUID().toString());
+            ref.putFile(imageUri);
+        }
+    }
 
 
     @Override
@@ -196,6 +201,6 @@ public class RegisterActivity extends AppCompatActivity {
             profilePic.setImageURI(imageUri);
         }
     }
-    
+
 
 }
