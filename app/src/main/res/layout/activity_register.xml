@@ -48,6 +48,20 @@
         />
     <EditText
         android:layout_width="match_parent"
+        android:paddingLeft="20sp"
+        android:layout_height="wrap_content"
+        android:hint="Enter your age"
+        android:textSize="20sp"
+        android:layout_marginBottom="20dp"
+        android:inputType="number"
+        android:background="@drawable/edit"
+        android:drawableStart="@drawable/ic_age"
+        android:drawablePadding="10dp"
+        android:elevation="8dp"
+        android:id="@+id/registerAge"
+        />
+    <EditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter your email"
         android:paddingLeft="20sp"

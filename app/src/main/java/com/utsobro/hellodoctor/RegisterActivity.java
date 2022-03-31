@@ -28,6 +28,8 @@ import com.google.android.material.badge.BadgeUtils;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -35,7 +37,7 @@ import java.util.UUID;
 
 public class RegisterActivity extends AppCompatActivity {
     private TextView goBackLogin;
-    private EditText registerName,registerEmail,registerPassword,retypePassword;
+    private EditText registerName,registerEmail,registerPassword,retypePassword,registerAge;
     private Button registerBtn;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
@@ -45,9 +47,14 @@ public class RegisterActivity extends AppCompatActivity {
     private Uri imageUri;
     private FirebaseStorage storage;
     private StorageReference storageRef;
+    private UUID uuid;
     //Doctor registration
     private Switch switchDoctor;
     private Spinner hospitalName,expertIn;
+
+    //Firebase Database
+    FirebaseDatabase rootNode;
+    DatabaseReference reference;
 
 
     @Override
@@ -56,10 +63,16 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         registerName = findViewById(R.id.registerName);
+        registerAge = findViewById(R.id.registerAge);
         registerEmail = findViewById(R.id.registerEmail);
         registerPassword = findViewById(R.id.registerPassword);
         retypePassword = findViewById(R.id.retypePassword);
         registerBtn = findViewById(R.id.registerBtn);
+        //Doctor registration
+        switchDoctor = findViewById(R.id.switchDoctor);
+        hospitalName = findViewById(R.id.hospitalName);
+        expertIn = findViewById(R.id.expertIn);
+
         firebaseAuth = FirebaseAuth.getInstance();
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference();
@@ -81,10 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
-        //Doctor registration
-        switchDoctor = findViewById(R.id.switchDoctor);
-        hospitalName = findViewById(R.id.hospitalName);
-        expertIn = findViewById(R.id.expertIn);
+
 
         //Set up the hospital spinner
         String[] hospitalNames =getResources().getStringArray(R.array.hospital_names);
@@ -149,6 +159,31 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this,"password is too short",Toast.LENGTH_SHORT).show();
                 }
                 else if(TextUtils.equals(password1,password2)){
+                    //Firebase database
+                    rootNode = FirebaseDatabase.getInstance();
+                    uuid = UUID.randomUUID();
+                    if(switchDoctor.isChecked()){
+                        reference = rootNode.getReference("Doctors");
+                        //get all the values need to store and pass it to helper class
+                        String name = registerName.getText().toString();
+                        String email = registerEmail.getText().toString();
+                        String age = registerAge.getText().toString();
+                        String expert = expertIn.getSelectedItem().toString();
+                        String hospital = hospitalName.getSelectedItem().toString();
+
+                        DoctorHelperClass doctorHelperClass =new DoctorHelperClass(name,age,email,expert,hospital);
+                        reference.child(uuid.toString()).setValue(doctorHelperClass);
+                    }
+                    else{
+                        reference = rootNode.getReference("Patients");
+                        //get all the values need to store and pass it to helper class
+                        String name = registerName.getText().toString();
+                        String email = registerEmail.getText().toString();
+                        String age = registerAge.getText().toString();
+
+                        PatientHelperClass patientHelperClass = new PatientHelperClass(name,age,email);
+                        reference.child(uuid.toString()).setValue(patientHelperClass);
+                    }
                     uploadImage();
                     regis(email1,password1);
                 }
@@ -187,7 +222,7 @@ public class RegisterActivity extends AppCompatActivity {
     //Profile Picture upload
     private void uploadImage(){
         if(imageUri != null){
-            StorageReference ref = storageRef.child("images/" + UUID.randomUUID().toString());
+            StorageReference ref = storageRef.child("images/" + uuid.toString());
             ref.putFile(imageUri);
         }
     }
