@@ -48,31 +48,35 @@ public class ProfileActivity extends AppCompatActivity {
 
         toggle.syncState();
 
+        //default flag
+        loadFragment(new ProfileFragment(),0);
+        //default fragment
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 if(id == R.id.optProfile){
-                    Toast.makeText(ProfileActivity.this,"Profile",Toast.LENGTH_SHORT).show();
+                    loadFragment(new ProfileFragment(),1);
                 }
                 else if(id == R.id.optAppointments){
-                    Toast.makeText(ProfileActivity.this,"Appointments",Toast.LENGTH_SHORT).show();
+                    loadFragment(new AppointmentsFragment(),1);
                 }
                 else if(id == R.id.optDoctors){
-                    Toast.makeText(ProfileActivity.this,"Doctors",Toast.LENGTH_SHORT).show();
+                    loadFragment(new DoctorsFragment(),1);
                 }
                 else if(id == R.id.optEmergency){
-                    Toast.makeText(ProfileActivity.this,"Emergency",Toast.LENGTH_SHORT).show();
+                    loadFragment(new EmergencyFragment(),1);
                 }
                 else if(id == R.id.optAmbulance){
-                    Toast.makeText(ProfileActivity.this,"Ambulance",Toast.LENGTH_SHORT).show();
+                    loadFragment(new AmbulanceFragment(),1);
                 }
                 else if(id == R.id.optAboutUs){
-                    Toast.makeText(ProfileActivity.this,"AboutUs",Toast.LENGTH_SHORT).show();
+                    loadFragment(new AboutFragment(),1);
                 }
                 else if(id == R.id.optLogOut){
                     //logout fragment implementation
-                    loadFragment(new LogoutFragment());
+                    loadFragment(new LogoutFragment(),1);
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
 
@@ -96,10 +100,12 @@ public class ProfileActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-    private void loadFragment(Fragment fragment){
+    private void loadFragment(Fragment fragment,int flag){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.container,fragment);
+
+        if(flag == 0) fragmentTransaction.add(R.id.container,fragment);
+        else fragmentTransaction.replace(R.id.container,fragment);
         fragmentTransaction.commit();
 
     }
