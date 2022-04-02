@@ -47,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Uri imageUri;
     private FirebaseStorage storage;
     private StorageReference storageRef;
-    private UUID uuid;
+    //private UUID uuid;
     //Doctor registration
     private Switch switchDoctor;
     private Spinner hospitalName,expertIn;
@@ -160,31 +160,8 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 else if(TextUtils.equals(password1,password2)){
                     //Firebase database
-                    rootNode = FirebaseDatabase.getInstance();
-                    uuid = UUID.randomUUID();
-                    if(switchDoctor.isChecked()){
-                        reference = rootNode.getReference("Doctors");
-                        //get all the values need to store and pass it to helper class
-                        String name = registerName.getText().toString();
-                        String email = registerEmail.getText().toString();
-                        String age = registerAge.getText().toString();
-                        String expert = expertIn.getSelectedItem().toString();
-                        String hospital = hospitalName.getSelectedItem().toString();
 
-                        DoctorHelperClass doctorHelperClass =new DoctorHelperClass(name,age,email,expert,hospital);
-                        reference.child(uuid.toString()).setValue(doctorHelperClass);
-                    }
-                    else{
-                        reference = rootNode.getReference("Patients");
-                        //get all the values need to store and pass it to helper class
-                        String name = registerName.getText().toString();
-                        String email = registerEmail.getText().toString();
-                        String age = registerAge.getText().toString();
 
-                        PatientHelperClass patientHelperClass = new PatientHelperClass(name,age,email);
-                        reference.child(uuid.toString()).setValue(patientHelperClass);
-                    }
-                    uploadImage();
                     regis(email1,password1);
                 }
                 else{
@@ -205,6 +182,37 @@ public class RegisterActivity extends AppCompatActivity {
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 String email = firebaseUser.getEmail();
                 Toast.makeText(RegisterActivity.this,"account created with\n"+email,Toast.LENGTH_SHORT).show();
+                //copied image and other data in firebase
+                rootNode = FirebaseDatabase.getInstance();
+                //uuid = UUID.randomUUID();
+                if(switchDoctor.isChecked()){
+                    reference = rootNode.getReference("Doctors");
+                    //get all the values need to store and pass it to helper class
+                    String name = registerName.getText().toString();
+                    String email1 = registerEmail.getText().toString();
+                    String age = registerAge.getText().toString();
+                    String expert = expertIn.getSelectedItem().toString();
+                    String hospital = hospitalName.getSelectedItem().toString();
+
+                    DoctorHelperClass doctorHelperClass =new DoctorHelperClass(name,age,email1,expert,hospital);
+                    reference.child(firebaseUser.getUid()).setValue(doctorHelperClass);
+                }
+                else{
+                    reference = rootNode.getReference("Patients");
+                    //get all the values need to store and pass it to helper class
+                    String name = registerName.getText().toString();
+                    String email1 = registerEmail.getText().toString();
+                    String age = registerAge.getText().toString();
+
+                    PatientHelperClass patientHelperClass = new PatientHelperClass(name,age,email1);
+                    reference.child(firebaseUser.getUid()).setValue(patientHelperClass);
+                }
+                if(imageUri != null){
+                    StorageReference ref = storageRef.child("images/" + firebaseUser.getUid());
+                    ref.putFile(imageUri);
+                }
+
+
                 //open profile activity
                 startActivity(new Intent(RegisterActivity.this,ProfileActivity.class));
                 finish();
@@ -220,12 +228,6 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
     //Profile Picture upload
-    private void uploadImage(){
-        if(imageUri != null){
-            StorageReference ref = storageRef.child("images/" + uuid.toString());
-            ref.putFile(imageUri);
-        }
-    }
 
 
     @Override
