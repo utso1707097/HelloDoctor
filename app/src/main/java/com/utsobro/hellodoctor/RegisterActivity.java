@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.UUID;
 
@@ -209,7 +210,22 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 if(imageUri != null){
                     StorageReference ref = storageRef.child("images/" + firebaseUser.getUid());
-                    ref.putFile(imageUri);
+                    ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+
+                            Toast.makeText(RegisterActivity.this, "Image uploaded", Toast.LENGTH_SHORT) .show();
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    //You will get donwload URL in uri
+                                    //Adding that URL to Realtime database
+                                    reference.child(firebaseUser.getUid()).child("imageUrl").setValue(uri.toString());
+                                }
+                            });
+                        }
+                    });
                 }
 
 

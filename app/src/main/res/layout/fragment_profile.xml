@@ -26,50 +26,48 @@
     </androidx.cardview.widget.CardView>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:id="@+id/showName"
-        android:textColor="#000"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginBottom="20dp"
+        android:gravity="left"
         />
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:id="@+id/showAge"
-        android:textColor="#000"
         android:textSize="20sp"
-        android:textStyle="normal"
+        android:textStyle="bold"
         android:layout_marginBottom="20dp"
+        android:gravity="left"
         />
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:id="@+id/showEmail"
-        android:textColor="#000"
         android:textSize="20sp"
-        android:textStyle="normal"
+        android:textStyle="bold"
         android:layout_marginBottom="20dp"
+        android:gravity="left"
         />
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:id="@+id/showExpertise"
-        android:textColor="#000"
         android:textSize="20sp"
-        android:textStyle="normal"
+        android:textStyle="bold"
         android:layout_marginBottom="20dp"
-        android:visibility="gone"
+        android:gravity="left"
         />
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:id="@+id/showHospital"
-        android:textColor="#000"
         android:textSize="20sp"
-        android:textStyle="normal"
+        android:textStyle="bold"
         android:layout_marginBottom="20dp"
-        android:visibility="gone"
+        android:gravity="left"
         />
 
 </LinearLayout>
