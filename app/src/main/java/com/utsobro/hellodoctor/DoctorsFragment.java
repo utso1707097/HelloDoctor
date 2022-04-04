@@ -10,13 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class DoctorsFragment extends Fragment {
     ArrayList<DoctorModel> arrayDoctor = new ArrayList<>();
     private RecyclerView recyclerView;
+    private RecyclerDoctorAdapter adapter;
     DatabaseReference databaseReference ;
 
     public DoctorsFragment() {
@@ -32,16 +35,36 @@ public class DoctorsFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        FirebaseRecyclerOptions<DoctorModel> options =
+                new FirebaseRecyclerOptions.Builder<DoctorModel>()
+                .setQuery(FirebaseDatabase.getInstance().getReference().child("Doctors"),DoctorModel.class)
+                .build();
 
+        /*
         arrayDoctor.add(new DoctorModel("Utso","Psychologist","Dhaka Medical College",R.drawable.profileblank));
         arrayDoctor.add(new DoctorModel("Mithila","Dermatologist","Khulna Medical College",R.drawable.profileblank));
         arrayDoctor.add(new DoctorModel("Rahi","Medicine","Rajshahi Medical College",R.drawable.profileblank));
+        */
 
 
+        //RecyclerDoctorAdapter adapter = new RecyclerDoctorAdapter(getActivity(),arrayDoctor);
+        //recyclerView.setAdapter(adapter);
 
-        RecyclerDoctorAdapter adapter = new RecyclerDoctorAdapter(getActivity(),arrayDoctor);
+        adapter =new RecyclerDoctorAdapter(options);
         recyclerView.setAdapter(adapter);
         return view;
 
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        adapter.stopListening();
     }
 }

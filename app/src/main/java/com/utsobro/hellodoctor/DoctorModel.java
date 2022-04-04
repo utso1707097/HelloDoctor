@@ -1,14 +1,20 @@
 package com.utsobro.hellodoctor;
 
 public class DoctorModel {
-    int image;
-    String name,expert,hospital;
+    String name,expert,medical,imageUrl,age,email;
 
-    public DoctorModel(String name, String expert, String hospital, int image) {
+    public DoctorModel(){
+
+    }
+
+
+    public DoctorModel(String age,String email, String expert,String imageUrl, String medical,String name) {
         this.name = name;
         this.expert = expert;
-        this.hospital = hospital;
-        this.image = image;
+        this.medical = medical;
+        this.age = age;
+        this.email = email;
+        this.imageUrl = imageUrl;
     }
 
     public String getName() {
@@ -19,11 +25,19 @@ public class DoctorModel {
         return expert;
     }
 
-    public String getHospital() {
-        return hospital;
+    public String getMedical() {
+        return medical;
     }
 
-    public int getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

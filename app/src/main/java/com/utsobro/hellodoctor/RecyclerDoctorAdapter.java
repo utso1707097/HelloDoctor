@@ -10,42 +10,41 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+
 import java.util.ArrayList;
 
-public class RecyclerDoctorAdapter extends RecyclerView.Adapter<RecyclerDoctorAdapter.ViewHolder> {
-    Context context;
-    ArrayList<DoctorModel> arrayDoctor;
+public class RecyclerDoctorAdapter extends FirebaseRecyclerAdapter<DoctorModel,RecyclerDoctorAdapter.viewHolder> {
 
 
-    RecyclerDoctorAdapter(Context context, ArrayList<DoctorModel>arrayDoctor){
-        this.context = context;
-        this.arrayDoctor =arrayDoctor;
+
+    RecyclerDoctorAdapter(FirebaseRecyclerOptions<DoctorModel>options){
+        super(options);
     }
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.doctor_row,parent,false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.doctor_row,parent,false);
+        return new viewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.doctorImage.setImageResource(arrayDoctor.get(position).image);
-        holder.doctorName.setText(arrayDoctor.get(position).name);
-        holder.doctorExpert.setText(arrayDoctor.get(position).expert);
-        holder.doctorHospital.setText(arrayDoctor.get(position).hospital);
+    public void onBindViewHolder(@NonNull viewHolder holder, int position,@NonNull DoctorModel model) {
+        //holder.doctorImage.setImageResource(arrayDoctor.get(position).imageUrl);
+
+        holder.doctorName.setText(model.getName());
+        holder.doctorExpert.setText(model.getExpert());
+        holder.doctorHospital.setText(model.getMedical());
+        Glide.with(holder.doctorImage.getContext()).load(model.getImageUrl()).into(holder.doctorImage);
+
     }
 
-    @Override
-    public int getItemCount() {
-        return arrayDoctor.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class viewHolder extends RecyclerView.ViewHolder{
         TextView doctorName,doctorExpert,doctorHospital;
         ImageView doctorImage;
-        public ViewHolder(@NonNull View itemView) {
+        public viewHolder(@NonNull View itemView) {
             super(itemView);
             doctorName = itemView.findViewById(R.id.doctorName);
             doctorExpert = itemView.findViewById(R.id.doctorExpert);
