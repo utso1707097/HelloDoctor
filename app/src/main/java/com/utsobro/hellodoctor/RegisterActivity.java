@@ -34,7 +34,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.Random;
 import java.util.UUID;
+
+import papaya.in.sendmail.SendMail;
 
 public class RegisterActivity extends AppCompatActivity {
     private TextView goBackLogin;
@@ -181,8 +184,7 @@ public class RegisterActivity extends AppCompatActivity {
                 progressDialog.dismiss();
                 //get user info
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                String email = firebaseUser.getEmail();
-                Toast.makeText(RegisterActivity.this,"account created with\n"+email,Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this,"Verify your email adress",Toast.LENGTH_SHORT).show();
                 //copied image and other data in firebase
                 rootNode = FirebaseDatabase.getInstance();
                 //uuid = UUID.randomUUID();
@@ -228,9 +230,22 @@ public class RegisterActivity extends AppCompatActivity {
                     });
                 }
 
-
+                //OTP verification
+                Random rand = new Random();
+                int myOtp = rand.nextInt(10000);
+                if(myOtp<1000) myOtp = myOtp + 1000;
                 //open profile activity
-                startActivity(new Intent(RegisterActivity.this,ProfileActivity.class));
+                Intent otpIntent = new Intent(RegisterActivity.this,OtpVerification.class);
+                otpIntent.putExtra("myOtp",String.valueOf(myOtp));
+                otpIntent.putExtra("emailto",email);
+                SendMail mail = new SendMail("meem222297@gmail.com", "utso222297",
+                        email,
+                        "Verify your email",
+                        "Your OTP for Doctor Verification is " + myOtp);
+                mail.execute();
+
+
+                startActivity(otpIntent);
                 finish();
             }
         })

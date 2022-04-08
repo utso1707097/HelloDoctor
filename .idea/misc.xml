@@ -14,9 +14,11 @@
         <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/drawable/ic_logout.xml" value="0.1855" />
         <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/drawable/ic_password.xml" value="0.1855" />
         <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/drawable/ic_person.xml" value="0.1855" />
+        <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/drawable/otpback.xml" value="0.213" />
         <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/layout/activity_home.xml" value="0.2109375" />
         <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/layout/activity_otp_verification.xml" value="0.1721014492753623" />
         <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/layout/activity_profile.xml" value="0.16799999999999998" />
         <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/layout/activity_register.xml" value="0.21197916666666666" />
         <entry key="..\:/Doctor Appointment/HelloDoctor/app/src/main/res/layout/app_bar_main.xml" value="0.23229166666666667" />

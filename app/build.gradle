@@ -54,4 +54,6 @@ dependencies {
 
     // FirebaseUI for Cloud Storage
     implementation 'com.firebaseui:firebase-ui-storage:8.0.1'
+
+    implementation 'com.github.1902shubh:SendMail:1.0.0'
 }

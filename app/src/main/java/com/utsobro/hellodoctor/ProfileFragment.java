@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -77,9 +78,7 @@ public class ProfileFragment extends Fragment {
                     String expert = snapshot.child("expert").getValue(String.class);
                     String hospital = snapshot.child("medical").getValue(String.class);
                     String imageUrl = snapshot.child("imageUrl").getValue(String.class);
-                    Picasso.get()
-                            .load(imageUrl)
-                            .into(showPic);
+                    Glide.with(showPic.getContext()).load(imageUrl).into(showPic);
                     showName.setText("NAME: "+name);
                     showAge.setText("AGE: " + age +" Years old");
                     showEmail.setText("EMAIL: "+email);
