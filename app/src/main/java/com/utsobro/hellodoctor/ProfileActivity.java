@@ -68,9 +68,6 @@ public class ProfileActivity extends AppCompatActivity {
                 else if(id == R.id.optEmergency){
                     loadFragment(new EmergencyFragment(),1);
                 }
-                else if(id == R.id.optAmbulance){
-                    loadFragment(new AmbulanceFragment(),1);
-                }
                 else if(id == R.id.optAboutUs){
                     loadFragment(new AboutFragment(),1);
                 }

@@ -116,6 +116,8 @@ public class ProfileFragment extends Fragment {
                      String name = snapshot.child("name").getValue(String.class);
                      String age = snapshot.child("age").getValue(String.class);
                      String email = snapshot.child("email").getValue(String.class);
+                    String imageUrl = snapshot.child("imageUrl").getValue(String.class);
+                    Glide.with(showPic.getContext()).load(imageUrl).into(showPic);
                     showName.setText("NAME: "+name);
                     showAge.setText("AGE: " + age +" Years old");
                     showEmail.setText("EMAIL: "+email);

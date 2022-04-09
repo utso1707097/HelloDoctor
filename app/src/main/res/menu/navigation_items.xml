@@ -20,11 +20,7 @@
         android:title="Emergency"
         android:icon="@drawable/ic_emergency"
         />
-    <item
-        android:id="@+id/optAmbulance"
-        android:title="Ambulance"
-        android:icon="@drawable/ic_ambulance"
-        />
+
     <item
         android:id="@+id/optAboutUs"
         android:title="About us"

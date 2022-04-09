@@ -196,8 +196,10 @@ public class RegisterActivity extends AppCompatActivity {
                     String age = registerAge.getText().toString();
                     String expert = expertIn.getSelectedItem().toString();
                     String hospital = hospitalName.getSelectedItem().toString();
+                    String userUid = firebaseUser.getUid();
 
-                    DoctorHelperClass doctorHelperClass =new DoctorHelperClass(name,age,email1,expert,hospital);
+
+                    DoctorHelperClass doctorHelperClass =new DoctorHelperClass(name,age,email1,expert,hospital,userUid);
                     reference.child(firebaseUser.getUid()).setValue(doctorHelperClass);
                 }
                 else{
@@ -206,8 +208,9 @@ public class RegisterActivity extends AppCompatActivity {
                     String name = registerName.getText().toString();
                     String email1 = registerEmail.getText().toString();
                     String age = registerAge.getText().toString();
+                    String userUid = firebaseUser.getUid();
 
-                    PatientHelperClass patientHelperClass = new PatientHelperClass(name,age,email1);
+                    PatientHelperClass patientHelperClass = new PatientHelperClass(name,age,email1,userUid);
                     reference.child(firebaseUser.getUid()).setValue(patientHelperClass);
                 }
                 if(imageUri != null){

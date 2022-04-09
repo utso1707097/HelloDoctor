@@ -25,15 +25,24 @@ public class PatientHelperClass {
         this.email = email;
     }
 
-    String name,age,email;
+    public String getUserUid() {
+        return userUid;
+    }
+
+    public void setUserUid(String userUid) {
+        this.userUid = userUid;
+    }
+
+    String name,age,email,userUid;
     public PatientHelperClass(){
 
     }
 
-    public PatientHelperClass(String name, String age, String email) {
+    public PatientHelperClass(String name, String age, String email,String userUid) {
         this.name = name;
         this.age = age;
         this.email = email;
+        this.userUid = userUid;
     }
 
 
