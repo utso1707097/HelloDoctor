@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -54,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
     //private UUID uuid;
     //Doctor registration
     private Switch switchDoctor;
-    private Spinner hospitalName,expertIn;
+    private AutoCompleteTextView hospitalName,expertIn;
 
     //Firebase Database
     FirebaseDatabase rootNode;
@@ -74,7 +75,9 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn = findViewById(R.id.registerBtn);
         //Doctor registration
         switchDoctor = findViewById(R.id.switchDoctor);
+
         hospitalName = findViewById(R.id.hospitalName);
+
         expertIn = findViewById(R.id.expertIn);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -100,17 +103,21 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
 
-        //Set up the hospital spinner
+
+        //set up hospital auto complete
         String[] hospitalNames =getResources().getStringArray(R.array.hospital_names);
         ArrayAdapter arrayAdapter = new ArrayAdapter(RegisterActivity.this, android.R.layout.simple_spinner_item,hospitalNames);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
         hospitalName.setAdapter(arrayAdapter);
+        hospitalName.setThreshold(1);
 
-        //set up the expertIn spinner
+        //set up expertIn auto complete
+
         String[] expertiseFields =getResources().getStringArray(R.array.expertise_fileds);
         ArrayAdapter arrayAdapter1 = new ArrayAdapter(RegisterActivity.this, android.R.layout.simple_spinner_item,expertiseFields);
-        arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapter1.setDropDownViewResource(android.R.layout.simple_list_item_1);
         expertIn.setAdapter(arrayAdapter1);
+        expertIn.setThreshold(1);
 
         switchDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,8 +201,8 @@ public class RegisterActivity extends AppCompatActivity {
                     String name = registerName.getText().toString();
                     String email1 = registerEmail.getText().toString();
                     String age = registerAge.getText().toString();
-                    String expert = expertIn.getSelectedItem().toString();
-                    String hospital = hospitalName.getSelectedItem().toString();
+                    String expert = expertIn.getText().toString();
+                    String hospital = hospitalName.getText().toString();
                     String userUid = firebaseUser.getUid();
 
 

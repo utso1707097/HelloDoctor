@@ -84,29 +84,34 @@
         style="@style/TextAppearance.AppCompat.Widget.DropDownItem"
         tools:ignore="UseSwitchCompatOrMaterialXml"
         android:id="@+id/switchDoctor"/>
-    <Spinner
+    <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:layout_marginBottom="20dp"
+        android:elevation="8dp"
+        android:background="@drawable/edit"
+        android:paddingLeft="20dp"
         android:inputType="text"
-        android:paddingLeft="20dp"
-        android:background="@drawable/edit"
-        android:elevation="8dp"
+        android:layout_marginBottom="20dp"
         android:id="@+id/hospitalName"
+        android:drawableStart="@drawable/ic_hospital"
+        android:drawablePadding="10dp"
+        android:hint="Select hospital name"
         android:visibility="gone"
-
         />
-
-    <Spinner
+    <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:layout_marginBottom="20dp"
-        android:paddingLeft="20dp"
-        android:background="@drawable/edit"
         android:elevation="8dp"
+        android:background="@drawable/edit"
+        android:paddingLeft="20dp"
+        android:inputType="text"
+        android:layout_marginBottom="20dp"
+        android:hint="Select your speciality"
         android:id="@+id/expertIn"
+        android:drawableStart="@drawable/ic_expert"
+        android:drawablePadding="10dp"
         android:visibility="gone"
         />
 

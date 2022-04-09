@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="hospital_names">
-        <item>Select hospital name</item>
         <item>Dhaka Medical College</item>
         <item>Khulna Medical College</item>
         <item>Rajsahi Medical College</item>
@@ -9,5 +8,20 @@
         <item>Dinajpur Medical College</item>
         <item>Barishal Medical College</item>
         <item>Chittagong Medical College</item>
+        <item>Khustia Medical College</item>
+        <item>Faridpur Medical College</item>
+        <item>Seikh Hasina Medical College</item>
+        <item>Seikh Sayera Khatun Medical College</item>
+        <item>Manikgonj Medical College</item>
+        <item>Mugda Medical College</item>
+        <item>Mymensingh Medical College</item>
+        <item>Pabna Medical College</item>
+        <item>Nilphamari Medical College</item>
+        <item>Naogaon Medical College</item>
+        <item>Comilla Medical College</item>
+        <item>Rangamati Medical College</item>
+        <item>Satkhira Medical College</item>
+        <item>Kushtia Medical College</item>
+        <item>Sir Salimullah Medical College</item>
     </string-array>
 </resources>

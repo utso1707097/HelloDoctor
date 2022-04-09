@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="expertise_fileds">
-        <item>Select your speciality</item>
         <item>Medicine</item>
         <item>Pathology</item>
-        <item>Psychiatry</item>
+        <item>Psychiatrist</item>
         <item>Surgery</item>
-        <item>Dermatology</item>
+        <item>Dermatologist</item>
         <item>Otolaryngologist</item>
-        <item>Gastrology</item>
+        <item>Gastrologist</item>
+        <item>Pediatrics</item>
+        <item>Cardiologist</item>
+        <item>Radiologist</item>
+        <item>Neurologist</item>
+        <item>Neurosurgery</item>
+        <item>Obstertrics</item>
+        <item>Pulmonologist</item>
+        <item>Endocrinology</item>
+        <item>Plastic Surgery</item>
+        <item>Urologist</item>
+        <item>Child Specialist</item>
+        <item>Hematologist</item>
+        <item>Dentist</item>
     </string-array>
 </resources>
