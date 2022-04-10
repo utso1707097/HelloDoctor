@@ -79,9 +79,9 @@ public class ProfileFragment extends Fragment {
                     String hospital = snapshot.child("medical").getValue(String.class);
                     String imageUrl = snapshot.child("imageUrl").getValue(String.class);
                     Glide.with(showPic.getContext()).load(imageUrl).into(showPic);
-                    showName.setText("NAME: "+name);
-                    showAge.setText("AGE: " + age +" Years old");
-                    showEmail.setText("EMAIL: "+email);
+                    showName.setText(name);
+                    showAge.setText(age +" Years old");
+                    showEmail.setText(email);
                     showHospital.setVisibility(View.VISIBLE);
                     showExpertise.setVisibility(View.VISIBLE);
                     showExpertise.setText(expert);
@@ -118,9 +118,9 @@ public class ProfileFragment extends Fragment {
                      String email = snapshot.child("email").getValue(String.class);
                     String imageUrl = snapshot.child("imageUrl").getValue(String.class);
                     Glide.with(showPic.getContext()).load(imageUrl).into(showPic);
-                    showName.setText("NAME: "+name);
-                    showAge.setText("AGE: " + age +" Years old");
-                    showEmail.setText("EMAIL: "+email);
+                    showName.setText(name);
+                    showAge.setText( age +" Years old");
+                    showEmail.setText(email);
 
                 }
             }

@@ -11,71 +11,93 @@
     android:padding="20dp">
 
     <!-- TODO: Update blank fragment layout -->
-    <androidx.cardview.widget.CardView
+
+    <ImageView
+        android:id="@+id/showPic"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        app:cardCornerRadius="100dp"
+        android:src="@drawable/profileblank"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         >
-        <ImageView
-            android:id="@+id/showPic"
-            android:layout_width="wrap_content"
+        <TextView
+            android:paddingLeft="5dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/profileblank"
+            android:id="@+id/showName"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:drawableStart="@drawable/ic_person"
+            android:drawablePadding="8dp"
+            android:background="@drawable/textbox_cover"
+
             />
-    </androidx.cardview.widget.CardView>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/showName"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"
-        android:gravity="left"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/showAge"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"
-        android:gravity="left"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/showEmail"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"
-        android:gravity="left"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/showExpertise"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"
-        android:gravity="left"
-        android:visibility="gone"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/showHospital"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"
-        android:gravity="left"
-        android:visibility="gone"
-        />
+        <TextView
+            android:paddingLeft="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/showAge"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:drawableStart="@drawable/ic_age"
+            android:drawablePadding="8dp"
+            android:background="@drawable/textbox_cover"
+            />
+        <TextView
+            android:paddingLeft="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/showEmail"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:drawableStart="@drawable/ic_email"
+            android:drawablePadding="8dp"
+            android:background="@drawable/textbox_cover"
+            />
+        <TextView
+            android:paddingLeft="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/showExpertise"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            android:drawableStart="@drawable/ic_expert"
+            android:drawablePadding="8dp"
+            android:background="@drawable/textbox_cover"/>
+        <TextView
+            android:paddingLeft="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/showHospital"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            android:drawableStart="@drawable/ic_hospital"
+            android:drawablePadding="8dp"
+            android:background="@drawable/textbox_cover"
+            />
+    </LinearLayout>
+
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Update"
         android:textSize="25sp"
-        android:backgroundTint="@color/purple_200"
+        android:backgroundTint="@color/teal_200"
         android:id="@+id/updateProfile"
         />
 
