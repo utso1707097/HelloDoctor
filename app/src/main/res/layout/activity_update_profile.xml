@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ProfileFragment"
+    tools:context=".UpdateProfile"
     android:orientation="vertical"
-    android:gravity="center"
     android:background="@drawable/background"
-    android:padding="20dp">
-
-    <!-- TODO: Update blank fragment layout -->
+    android:padding="20dp"
+    android:gravity="center">
 
     <ImageView
-        android:id="@+id/showPic"
+        android:id="@+id/editPic"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:src="@drawable/profileblank"
@@ -26,11 +24,11 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         >
-        <TextView
+        <EditText
             android:paddingLeft="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/showName"
+            android:id="@+id/editName"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -40,11 +38,11 @@
             android:background="@drawable/textbox_cover"
 
             />
-        <TextView
+        <EditText
             android:paddingLeft="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/showAge"
+            android:id="@+id/editAge"
             android:textSize="15sp"
             android:textStyle="bold"
             android:gravity="center_vertical"
@@ -52,23 +50,11 @@
             android:drawablePadding="8dp"
             android:background="@drawable/textbox_cover"
             />
-        <TextView
+        <AutoCompleteTextView
             android:paddingLeft="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/showEmail"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:gravity="center_vertical"
-            android:drawableStart="@drawable/ic_email"
-            android:drawablePadding="8dp"
-            android:background="@drawable/textbox_cover"
-            />
-        <TextView
-            android:paddingLeft="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/showExpertise"
+            android:id="@+id/editExpertise"
             android:textSize="15sp"
             android:textStyle="bold"
             android:gravity="center_vertical"
@@ -76,11 +62,11 @@
             android:drawableStart="@drawable/ic_expert"
             android:drawablePadding="8dp"
             android:background="@drawable/textbox_cover"/>
-        <TextView
+        <AutoCompleteTextView
             android:paddingLeft="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/showHospital"
+            android:id="@+id/editHospital"
             android:textSize="15sp"
             android:textStyle="bold"
             android:gravity="center_vertical"
@@ -95,10 +81,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Update"
+        android:text="Confirm"
         android:textSize="25sp"
         android:backgroundTint="@color/teal_200"
-        android:id="@+id/btnUpdate"
+        android:id="@+id/btnConfirm"
         />
+
 
 </LinearLayout>

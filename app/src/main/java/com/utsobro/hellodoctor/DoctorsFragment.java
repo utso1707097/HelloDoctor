@@ -1,5 +1,6 @@
 package com.utsobro.hellodoctor;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,6 +22,7 @@ public class DoctorsFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerDoctorAdapter adapter;
     DatabaseReference databaseReference ;
+    ProgressDialog progressDialog;
 
     public DoctorsFragment() {
         // Required empty public constructor
@@ -32,6 +34,11 @@ public class DoctorsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_doctors, container, false);
         recyclerView = view.findViewById(R.id.recyclerDoctor);
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setTitle("Wait");
+        progressDialog.setMessage("Fetching all doctors data");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -52,6 +59,7 @@ public class DoctorsFragment extends Fragment {
 
         adapter =new RecyclerDoctorAdapter(options);
         recyclerView.setAdapter(adapter);
+        progressDialog.cancel();
         return view;
 
     }

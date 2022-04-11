@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HelloDoctor">
         <activity
+            android:name=".UpdateProfile"
+            android:exported="false" />
+        <activity
             android:name=".OtpVerification"
             android:exported="false" />
         <activity

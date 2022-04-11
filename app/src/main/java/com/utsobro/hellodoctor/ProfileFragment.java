@@ -1,5 +1,7 @@
 package com.utsobro.hellodoctor;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,6 +41,9 @@ public class ProfileFragment extends Fragment {
     private ImageView showPic;
     private FirebaseStorage storage;
     private StorageReference storageRef,imageRef;
+    private Button btnUpdate;
+    private ProgressDialog progressDialog;
+
 
 
     public ProfileFragment() {
@@ -55,6 +61,13 @@ public class ProfileFragment extends Fragment {
         showExpertise =view.findViewById(R.id.showExpertise);
         showHospital =view.findViewById(R.id.showHospital);
         showPic = view.findViewById(R.id.showPic);
+        btnUpdate = view.findViewById(R.id.btnUpdate);
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setTitle("Wait");
+        progressDialog.setMessage("Loading your Profile");
+        progressDialog.setCanceledOnTouchOutside(false);
+
+        progressDialog.show();
 
         //get data from firebase
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -80,13 +93,13 @@ public class ProfileFragment extends Fragment {
                     String imageUrl = snapshot.child("imageUrl").getValue(String.class);
                     Glide.with(showPic.getContext()).load(imageUrl).into(showPic);
                     showName.setText(name);
-                    showAge.setText(age +" Years old");
+                    showAge.setText(age +" years old");
                     showEmail.setText(email);
                     showHospital.setVisibility(View.VISIBLE);
                     showExpertise.setVisibility(View.VISIBLE);
                     showExpertise.setText(expert);
                     showHospital.setText(hospital);
-
+                    progressDialog.cancel();
                  }
                 else{
                     //the user is not a doctor he is a patient
@@ -96,7 +109,20 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                progressDialog.cancel();
+                Toast.makeText(getActivity(),"Failed to fetch user data",Toast.LENGTH_SHORT).show();
+            }
+        });
 
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent updateProfile = new Intent(getActivity(),UpdateProfile.class);
+                updateProfile.putExtra("name",showName.getText().toString());
+                updateProfile.putExtra("age",showAge.getText().toString());
+                updateProfile.putExtra("hospital",showHospital.getText().toString());
+                updateProfile.putExtra("expertise",showExpertise.getText().toString());
+                startActivity(updateProfile);
             }
         });
 
@@ -121,13 +147,15 @@ public class ProfileFragment extends Fragment {
                     showName.setText(name);
                     showAge.setText( age +" Years old");
                     showEmail.setText(email);
+                    progressDialog.cancel();
 
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                progressDialog.cancel();
+                Toast.makeText(getActivity(),"Failed to fetch user data",Toast.LENGTH_SHORT).show();
             }
         });
     }
