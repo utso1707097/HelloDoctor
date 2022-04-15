@@ -15,8 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -47,6 +53,10 @@ public class RecyclerDoctorAdapter extends FirebaseRecyclerAdapter<DoctorModel,R
         TextView doctorName,doctorExpert,doctorHospital,showUserUid;
         Button appointmentBtn;
         ImageView doctorImage;
+        String patientName;
+        FirebaseDatabase rootnode;
+        DatabaseReference reference,uidReference;
+
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             doctorName = itemView.findViewById(R.id.doctorName);
@@ -57,6 +67,29 @@ public class RecyclerDoctorAdapter extends FirebaseRecyclerAdapter<DoctorModel,R
 
             appointmentBtn = itemView.findViewById(R.id.appointmentBtn);
 
+            rootnode = FirebaseDatabase.getInstance();
+            reference = rootnode.getReference("AppointmentRequest");
+
+            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference uidRef = rootRef.child("Patients").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+            uidRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        patientName = snapshot.child("name").getValue(String.class);
+                    }
+                    else {
+                        getPatientName();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
             appointmentBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -64,10 +97,43 @@ public class RecyclerDoctorAdapter extends FirebaseRecyclerAdapter<DoctorModel,R
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     String requestSenderUserUid = currentUser.getUid();
                     String requestedUserUid = getItem(getAbsoluteAdapterPosition()).userUid;
-                    Toast.makeText(itemView.getContext(),requestSenderUserUid + " requested " + requestedUserUid, Toast.LENGTH_LONG).show();
+                    String requestedUserName = getItem(getAbsoluteAdapterPosition()).name;
+
+
+
+
+                    RequestHelperClass requestHelperClass = new RequestHelperClass(patientName,requestSenderUserUid);
+                    reference.child(getItem(getAbsoluteAdapterPosition()).userUid).child(currentUser.getUid()).setValue(requestHelperClass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(itemView.getContext(),"You " + " requested " + requestedUserName + " to get an appointment", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+
+
                 }
             });
 
+        }
+        void getPatientName(){
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference uidRef = rootRef.child("Doctors").child(uid);
+            uidRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        patientName = snapshot.child("name").getValue(String.class);
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
     }
 
