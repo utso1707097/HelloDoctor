@@ -2,37 +2,27 @@ package com.utsobro.hellodoctor;
 
 public class AppointmentModel {
     //fetching user data who have requested
-    String name,imageUrl,age,email,userUid;
+    String patientId,patientName,patientUrlImage;
 
     public AppointmentModel(){
         //default constructor
     }
 
-    public AppointmentModel(String age,String email,String imageUrl, String name,String userUid) {
-        this.name = name;
-        this.age = age;
-        this.email = email;
-        this.imageUrl = imageUrl;
-        this.userUid = userUid;
+    public AppointmentModel(String patientId,String patientName,String patientUrlImage) {
+        this.patientId = patientId;
+        this.patientName = patientName;
+        this.patientUrlImage = patientUrlImage;
     }
 
-    public String getName() {
-        return name;
+    public String getPatientId() {
+        return patientId;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getPatientName() {
+        return patientName;
     }
 
-    public String getAge() {
-        return age;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getUserUid() {
-        return userUid;
+    public String getPatientUrlImage() {
+        return patientUrlImage;
     }
 }

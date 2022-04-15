@@ -53,7 +53,7 @@ public class RecyclerDoctorAdapter extends FirebaseRecyclerAdapter<DoctorModel,R
         TextView doctorName,doctorExpert,doctorHospital,showUserUid;
         Button appointmentBtn;
         ImageView doctorImage;
-        String patientName;
+        String patientName,patientUrlImage;
         FirebaseDatabase rootnode;
         DatabaseReference reference,uidReference;
 
@@ -78,6 +78,7 @@ public class RecyclerDoctorAdapter extends FirebaseRecyclerAdapter<DoctorModel,R
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
                         patientName = snapshot.child("name").getValue(String.class);
+                        patientUrlImage = snapshot.child("imageUrl").getValue(String.class);
                     }
                     else {
                         getPatientName();
@@ -102,7 +103,7 @@ public class RecyclerDoctorAdapter extends FirebaseRecyclerAdapter<DoctorModel,R
 
 
 
-                    RequestHelperClass requestHelperClass = new RequestHelperClass(patientName,requestSenderUserUid);
+                    RequestHelperClass requestHelperClass = new RequestHelperClass(patientName,requestSenderUserUid,patientUrlImage);
                     reference.child(getItem(getAbsoluteAdapterPosition()).userUid).child(currentUser.getUid()).setValue(requestHelperClass).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
@@ -125,6 +126,7 @@ public class RecyclerDoctorAdapter extends FirebaseRecyclerAdapter<DoctorModel,R
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.exists()){
                         patientName = snapshot.child("name").getValue(String.class);
+                        patientUrlImage = snapshot.child("imageUrl").getValue(String.class);
 
                     }
                 }

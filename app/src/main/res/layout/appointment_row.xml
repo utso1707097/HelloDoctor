@@ -47,13 +47,6 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/patientAge"
-                        android:layout_marginBottom="10dp"
-                        android:textSize="15sp"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:text="wants an appointment from you,Sir"
                         android:layout_marginBottom="10dp"
                         android:textSize="15sp"
