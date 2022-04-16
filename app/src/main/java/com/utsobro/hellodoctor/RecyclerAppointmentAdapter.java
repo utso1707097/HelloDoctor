@@ -1,5 +1,6 @@
 package com.utsobro.hellodoctor;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -41,6 +43,26 @@ public class RecyclerAppointmentAdapter extends FirebaseRecyclerAdapter<Appointm
         holder.rejected = model.getRejected();
         holder.visibility = model.getVisibility();
         Glide.with(holder.patientImage.getContext()).load(model.getPatientUrlImage()).into(holder.patientImage);
+        if(TextUtils.equals(model.getRejected(),"not rejected") && TextUtils.equals(model.getVisibility(),"invisible")){
+            holder.appointmentLayout.setVisibility(View.VISIBLE);
+        }
+
+        else if(TextUtils.equals(model.getRejected(),"rejected") && TextUtils.equals(model.getVisibility(),"invisible")){
+            holder.appointmentLayout.setVisibility(View.GONE);
+        }
+
+        /*
+        if (user.getUserEmail().equals(Utils.decodeEmail(userEmail))) {
+            viewHolder.llMain.setVisibility(View.GONE);
+            return;
+        }
+         */
+
+        else if(TextUtils.equals(model.getRejected(),"accepted") && TextUtils.equals(model.getVisibility(),"visible")){
+            holder.acceptBtn.setVisibility(View.GONE);
+            holder.rejectBtn.setVisibility(View.GONE);
+            holder.showText.setText("You have an appointment with " + holder.patientName.getText().toString());
+        }
     }
 
     public class newViewHolder extends RecyclerView.ViewHolder{
@@ -50,7 +72,7 @@ public class RecyclerAppointmentAdapter extends FirebaseRecyclerAdapter<Appointm
         String patientId,rejected,visibility;
         Button acceptBtn,rejectBtn;
         LinearLayout appointmentLayout;
-        DatabaseReference rootRef,uidRef;
+        DatabaseReference rootRef,uidRef,patientRef;
 
 
         public newViewHolder(@NonNull View itemView) {
@@ -61,24 +83,59 @@ public class RecyclerAppointmentAdapter extends FirebaseRecyclerAdapter<Appointm
             acceptBtn = itemView.findViewById(R.id.acceptBtn);
             rejectBtn = itemView.findViewById(R.id.rejectBtn);
             appointmentLayout = itemView.findViewById(R.id.appointmentLayout);
-            rootRef = FirebaseDatabase.getInstance().getReference();
-            uidRef = rootRef.child("AppointmentRequest").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            rootRef = FirebaseDatabase.getInstance().getReference();
+
+            /*
+            if(rejected == "rejected" && visibility == "invisible"){
+                appointmentLayout.setVisibility(itemView.GONE);
+            }
+            else if(rejected == "accepted" && visibility == "visible"){
+                acceptBtn.setVisibility(itemView.GONE);
+                rejectBtn.setVisibility(itemView.GONE);
+                showText.setText("You have an appointment with " +patientName.getText().toString());
+            }
+            */
 
             acceptBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    acceptBtn.setVisibility(view.GONE);
-                    rejectBtn.setVisibility(view.GONE);
-                    //showText.setText("You have an appointment with " +patientName.getText().toString());
-                    showText.setText(rejected + visibility);
+
+                    String patientUid = getItem(getAbsoluteAdapterPosition()).getPatientId();
+                    uidRef = rootRef.child("AppointmentRequest").child(uid).child(patientUid);;
+                    uidRef.child("rejected").setValue("accepted");
+                    uidRef.child("visibility").setValue("visible").addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            acceptBtn.setVisibility(view.GONE);
+                            rejectBtn.setVisibility(view.GONE);
+                            showText.setText("You have an appointment with " +patientName.getText().toString());
+                        }
+                    });
+                    //rejected = "accepted";
+                    //visibility = "visible";
+                    //showText.setText(rejected + visibility);
                 }
             });
 
             rejectBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    appointmentLayout.setVisibility(view.GONE);
+                    String patientUid = getItem(getAbsoluteAdapterPosition()).getPatientId();
+                    uidRef = rootRef.child("AppointmentRequest").child(uid).child(patientUid);;
+                    uidRef.child("visibility").setValue("invisible");
+                    uidRef.child("rejected").setValue("rejected").addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            appointmentLayout.setVisibility(view.GONE);
+                        }
+                    });
+                    //showText.setText(rejected + visibility);
+
+
+                    //rejected = "rejected";
+                    //visibility = "invisible";
                 }
             });
 
