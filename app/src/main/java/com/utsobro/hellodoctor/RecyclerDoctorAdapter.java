@@ -55,7 +55,7 @@ public class RecyclerDoctorAdapter extends FirebaseRecyclerAdapter<DoctorModel,R
         ImageView doctorImage;
         String patientName,patientUrlImage;
         FirebaseDatabase rootnode;
-        DatabaseReference reference,uidReference;
+        DatabaseReference reference,uidReference,rootRef,uidRef;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,8 +70,8 @@ public class RecyclerDoctorAdapter extends FirebaseRecyclerAdapter<DoctorModel,R
             rootnode = FirebaseDatabase.getInstance();
             reference = rootnode.getReference("AppointmentRequest");
 
-            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference uidRef = rootRef.child("Patients").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            rootRef = FirebaseDatabase.getInstance().getReference();
+            uidRef = rootRef.child("Patients").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
             uidRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -81,7 +81,21 @@ public class RecyclerDoctorAdapter extends FirebaseRecyclerAdapter<DoctorModel,R
                         patientUrlImage = snapshot.child("imageUrl").getValue(String.class);
                     }
                     else {
-                        getPatientName();
+                        uidRef = rootRef.child("Doctors").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        uidRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(snapshot.exists()){
+                                    patientName = snapshot.child("name").getValue(String.class);
+                                    patientUrlImage = snapshot.child("imageUrl").getValue(String.class);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
                 }
 
@@ -99,11 +113,10 @@ public class RecyclerDoctorAdapter extends FirebaseRecyclerAdapter<DoctorModel,R
                     String requestSenderUserUid = currentUser.getUid();
                     String requestedUserUid = getItem(getAbsoluteAdapterPosition()).userUid;
                     String requestedUserName = getItem(getAbsoluteAdapterPosition()).name;
+                    String rejected = "not rejected";
+                    String visibility = "invisible";
 
-
-
-
-                    RequestHelperClass requestHelperClass = new RequestHelperClass(patientName,requestSenderUserUid,patientUrlImage);
+                    RequestHelperClass requestHelperClass = new RequestHelperClass(patientName,requestSenderUserUid,patientUrlImage,rejected,visibility);
                     reference.child(getItem(getAbsoluteAdapterPosition()).userUid).child(currentUser.getUid()).setValue(requestHelperClass).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
@@ -116,26 +129,6 @@ public class RecyclerDoctorAdapter extends FirebaseRecyclerAdapter<DoctorModel,R
                 }
             });
 
-        }
-        void getPatientName(){
-            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference uidRef = rootRef.child("Doctors").child(uid);
-            uidRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
-                        patientName = snapshot.child("name").getValue(String.class);
-                        patientUrlImage = snapshot.child("imageUrl").getValue(String.class);
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
         }
     }
 
