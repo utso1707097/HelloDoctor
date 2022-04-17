@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +44,16 @@ public class RecyclerAppointmentAdapter extends FirebaseRecyclerAdapter<Appointm
         holder.rejected = model.getRejected();
         holder.visibility = model.getVisibility();
         Glide.with(holder.patientImage.getContext()).load(model.getPatientUrlImage()).into(holder.patientImage);
+
+        /*
+        String patientVisibility = FirebaseDatabase.getInstance().getReference().child("AppointmentPatient").child(holder.uid).child("visibility").get(S);
+        Toast.makeText(holder.appointmentLayout.getContext(), "Hi" +patientVisibility,Toast.LENGTH_LONG).show();
+        if(TextUtils.equals(patientVisibility,"visible")){
+            holder.patientName.setText(model.getPatientName());
+            holder.appointmentLayout.setVisibility(View.VISIBLE);
+        }
+        */
+
         if(TextUtils.equals(model.getRejected(),"not rejected") && TextUtils.equals(model.getVisibility(),"invisible")){
             holder.patientName.setText(model.getPatientName());
             holder.appointmentLayout.setVisibility(View.VISIBLE);
@@ -107,7 +118,10 @@ public class RecyclerAppointmentAdapter extends FirebaseRecyclerAdapter<Appointm
                 public void onClick(View view) {
 
                     String patientUid = getItem(getAbsoluteAdapterPosition()).getPatientId();
-                    uidRef = rootRef.child("AppointmentRequest").child(uid).child(patientUid);;
+                    uidRef = rootRef.child("AppointmentRequest").child(uid).child(patientUid);
+                    patientRef = rootRef.child("AppointmentPatient").child(patientUid).child(uid); //patientUid = doctorUid
+                    patientRef.child("rejected").setValue("accepted");
+                    patientRef.child("visibility").setValue("visible");
                     uidRef.child("rejected").setValue("accepted");
                     uidRef.child("visibility").setValue("visible").addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -127,7 +141,10 @@ public class RecyclerAppointmentAdapter extends FirebaseRecyclerAdapter<Appointm
                 @Override
                 public void onClick(View view) {
                     String patientUid = getItem(getAbsoluteAdapterPosition()).getPatientId();
-                    uidRef = rootRef.child("AppointmentRequest").child(uid).child(patientUid);;
+                    uidRef = rootRef.child("AppointmentRequest").child(uid).child(patientUid);
+                    patientRef = rootRef.child("AppointmentPatient").child(uid).child(patientUid); //patientUid = doctorUid
+                    patientRef.child("visibility").setValue("invisible");
+                    patientRef.child("rejected").setValue("rejected");
                     uidRef.child("visibility").setValue("invisible");
                     uidRef.child("rejected").setValue("rejected").addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

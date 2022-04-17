@@ -3,6 +3,7 @@ package com.utsobro.hellodoctor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +20,7 @@ public class AppointmentsFragment extends Fragment {
 
     private RecyclerView recyclerAppointment;
     private RecyclerAppointmentAdapter adapter;
+    private  RecyclerAppointmentPatientAdapter adapter1;
 
     public AppointmentsFragment() {
         // Required empty public constructor
@@ -37,9 +39,18 @@ public class AppointmentsFragment extends Fragment {
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("AppointmentRequest").child(currentUser),AppointmentModel.class)
                         .build();
 
+        FirebaseRecyclerOptions<PatientModel> options1 =
+                new FirebaseRecyclerOptions.Builder<PatientModel>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("AppointmentPatient").child(currentUser),PatientModel.class)
+                        .build();
+
+
         recyclerAppointment.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter =new RecyclerAppointmentAdapter(options);
-        recyclerAppointment.setAdapter(adapter);
+        adapter1 = new RecyclerAppointmentPatientAdapter(options1);
+
+        ConcatAdapter concatAdapter = new ConcatAdapter(adapter,adapter1);
+        recyclerAppointment.setAdapter(concatAdapter);
 
 
         return view;
@@ -48,12 +59,14 @@ public class AppointmentsFragment extends Fragment {
     @Override
     public void onStart(){
         super.onStart();
+        adapter1.startListening();
         adapter.startListening();
     }
 
     @Override
     public void onStop(){
         super.onStop();
+        adapter1.stopListening();
         adapter.stopListening();
     }
 
