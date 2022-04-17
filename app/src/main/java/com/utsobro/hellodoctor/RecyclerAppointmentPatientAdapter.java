@@ -54,7 +54,7 @@ public class RecyclerAppointmentPatientAdapter extends FirebaseRecyclerAdapter<P
 
         else if(TextUtils.equals(model.getRejected(),"rejected") && TextUtils.equals(model.getVisibility(),"invisible")){
             holder.doctorName.setText(model.getDoctorName());
-            holder.appointmentLayout.setVisibility(View.GONE);
+            holder.showText.setText("Your request get rejected");
 
         }
 

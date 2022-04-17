@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginBottom="15dp"
+        android:background="@drawable/textbox_cover"
+        android:padding="10dp"
         >
     <TextView
         android:layout_width="match_parent"
@@ -21,6 +23,7 @@
         android:textSize="20sp"
         android:text=" Dhaka Medical College"
         android:textColor="@color/black"
+        android:layout_marginBottom="5dp"
         />
     <TextView
         android:layout_width="match_parent"
@@ -35,6 +38,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginBottom="15dp"
+        android:background="@drawable/textbox_cover"
+        android:padding="10dp"
         >
         <TextView
             android:layout_width="match_parent"
@@ -58,6 +63,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginBottom="15dp"
+        android:background="@drawable/textbox_cover"
+        android:padding="10dp"
         >
         <TextView
             android:layout_width="match_parent"
@@ -81,6 +88,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginBottom="15dp"
+        android:background="@drawable/textbox_cover"
+        android:padding="10dp"
         >
         <TextView
             android:layout_width="match_parent"
@@ -104,6 +113,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginBottom="15dp"
+        android:background="@drawable/textbox_cover"
+        android:padding="10dp"
         >
         <TextView
             android:layout_width="match_parent"
@@ -127,6 +138,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginBottom="15dp"
+        android:background="@drawable/textbox_cover"
+        android:padding="10dp"
         >
         <TextView
             android:layout_width="match_parent"
@@ -150,21 +163,23 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginBottom="5dp"
+        android:background="@drawable/textbox_cover"
+        android:padding="10dp"
         >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:text=" Rangpur Medical College"
-            android:textColor="@color/black"
-            android:layout_marginBottom="5dp"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text=" Emergency: 01739238431"
-            />
-    </LinearLayout>
+    android:textStyle="bold"
+    android:textSize="20sp"
+    android:text=" Rangpur Medical College"
+    android:textColor="@color/black"
+    android:layout_marginBottom="5dp"
+    />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text=" Emergency: 01739238431"
+        />
+</LinearLayout>
 </LinearLayout>

@@ -117,7 +117,7 @@ public class RecyclerAppointmentAdapter extends FirebaseRecyclerAdapter<Appointm
                 @Override
                 public void onClick(View view) {
 
-                    String patientUid = getItem(getAbsoluteAdapterPosition()).getPatientId();
+                    String patientUid = getItem(getBindingAdapterPosition()).getPatientId();
                     uidRef = rootRef.child("AppointmentRequest").child(uid).child(patientUid);
                     patientRef = rootRef.child("AppointmentPatient").child(patientUid).child(uid); //patientUid = doctorUid
                     patientRef.child("rejected").setValue("accepted");
@@ -140,9 +140,9 @@ public class RecyclerAppointmentAdapter extends FirebaseRecyclerAdapter<Appointm
             rejectBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String patientUid = getItem(getAbsoluteAdapterPosition()).getPatientId();
+                    String patientUid = getItem(getBindingAdapterPosition()).getPatientId();
                     uidRef = rootRef.child("AppointmentRequest").child(uid).child(patientUid);
-                    patientRef = rootRef.child("AppointmentPatient").child(uid).child(patientUid); //patientUid = doctorUid
+                    patientRef = rootRef.child("AppointmentPatient").child(patientUid).child(uid); //patientUid = doctorUid
                     patientRef.child("visibility").setValue("invisible");
                     patientRef.child("rejected").setValue("rejected");
                     uidRef.child("visibility").setValue("invisible");
