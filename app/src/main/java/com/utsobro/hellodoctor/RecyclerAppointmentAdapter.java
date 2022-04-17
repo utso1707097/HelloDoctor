@@ -18,6 +18,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -38,16 +39,17 @@ public class RecyclerAppointmentAdapter extends FirebaseRecyclerAdapter<Appointm
     @Override
     public void onBindViewHolder(@NonNull RecyclerAppointmentAdapter.newViewHolder holder, int position, @NonNull AppointmentModel model) {
         //holder.doctorImage.setImageResource(arrayDoctor.get(position).imageUrl);
-        holder.patientName.setText(model.getPatientName());
         holder.patientId = model.getPatientId();
         holder.rejected = model.getRejected();
         holder.visibility = model.getVisibility();
         Glide.with(holder.patientImage.getContext()).load(model.getPatientUrlImage()).into(holder.patientImage);
         if(TextUtils.equals(model.getRejected(),"not rejected") && TextUtils.equals(model.getVisibility(),"invisible")){
+            holder.patientName.setText(model.getPatientName());
             holder.appointmentLayout.setVisibility(View.VISIBLE);
         }
 
         else if(TextUtils.equals(model.getRejected(),"rejected") && TextUtils.equals(model.getVisibility(),"invisible")){
+            holder.patientName.setText(model.getPatientName());
             holder.appointmentLayout.setVisibility(View.GONE);
         }
 
@@ -59,6 +61,7 @@ public class RecyclerAppointmentAdapter extends FirebaseRecyclerAdapter<Appointm
          */
 
         else if(TextUtils.equals(model.getRejected(),"accepted") && TextUtils.equals(model.getVisibility(),"visible")){
+            holder.patientName.setText(model.getPatientName());
             holder.acceptBtn.setVisibility(View.GONE);
             holder.rejectBtn.setVisibility(View.GONE);
             holder.showText.setText("You have an appointment with " + holder.patientName.getText().toString());
@@ -73,6 +76,7 @@ public class RecyclerAppointmentAdapter extends FirebaseRecyclerAdapter<Appointm
         Button acceptBtn,rejectBtn;
         LinearLayout appointmentLayout;
         DatabaseReference rootRef,uidRef,patientRef;
+        String uid;
 
 
         public newViewHolder(@NonNull View itemView) {
@@ -84,7 +88,7 @@ public class RecyclerAppointmentAdapter extends FirebaseRecyclerAdapter<Appointm
             rejectBtn = itemView.findViewById(R.id.rejectBtn);
             appointmentLayout = itemView.findViewById(R.id.appointmentLayout);
 
-            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             rootRef = FirebaseDatabase.getInstance().getReference();
 
             /*

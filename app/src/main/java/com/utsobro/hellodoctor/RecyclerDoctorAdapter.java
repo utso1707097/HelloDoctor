@@ -55,7 +55,7 @@ public class RecyclerDoctorAdapter extends FirebaseRecyclerAdapter<DoctorModel,R
         ImageView doctorImage;
         String patientName,patientUrlImage;
         FirebaseDatabase rootnode;
-        DatabaseReference reference,uidReference,rootRef,uidRef;
+        DatabaseReference reference,referencePatient,rootRef,uidRef;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +69,7 @@ public class RecyclerDoctorAdapter extends FirebaseRecyclerAdapter<DoctorModel,R
 
             rootnode = FirebaseDatabase.getInstance();
             reference = rootnode.getReference("AppointmentRequest");
+            referencePatient = rootnode.getReference("AppointmentPatient");
 
             rootRef = FirebaseDatabase.getInstance().getReference();
             uidRef = rootRef.child("Patients").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -109,12 +110,16 @@ public class RecyclerDoctorAdapter extends FirebaseRecyclerAdapter<DoctorModel,R
                 @Override
                 public void onClick(View view) {
                     //Toast.makeText(itemView.getContext(),"requested to "+ userUid,Toast.LENGTH_SHORT).show();
+
+
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     String requestSenderUserUid = currentUser.getUid();
-                    String requestedUserUid = getItem(getAbsoluteAdapterPosition()).userUid;
-                    String requestedUserName = getItem(getAbsoluteAdapterPosition()).name;
                     String rejected = "not rejected";
                     String visibility = "invisible";
+
+                    String requestedUserUid = getItem(getAbsoluteAdapterPosition()).userUid;
+                    String requestedUserName = getItem(getAbsoluteAdapterPosition()).name;
+                    String doctorUrlImage = getItem(getAbsoluteAdapterPosition()).getImageUrl();
 
                     RequestHelperClass requestHelperClass = new RequestHelperClass(patientName,requestSenderUserUid,patientUrlImage,rejected,visibility);
                     reference.child(getItem(getAbsoluteAdapterPosition()).userUid).child(currentUser.getUid()).setValue(requestHelperClass).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -124,7 +129,8 @@ public class RecyclerDoctorAdapter extends FirebaseRecyclerAdapter<DoctorModel,R
                         }
                     });
 
-
+                    RequestedDoctorHelperClass requestedDoctorHelperClass = new RequestedDoctorHelperClass(requestedUserName,requestedUserUid,doctorUrlImage,rejected,visibility);
+                    referencePatient.child(currentUser.getUid()).child(getItem(getAbsoluteAdapterPosition()).userUid).setValue(requestedDoctorHelperClass);
 
                 }
             });

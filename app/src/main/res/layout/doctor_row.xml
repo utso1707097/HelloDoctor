@@ -27,6 +27,7 @@
                 android:layout_width="85dp"
                 android:layout_height="85dp"
                 android:background="#c6f492"
+                android:scaleType="centerCrop"
                 android:contentDescription="Doctor image"
                 android:id="@+id/doctorImage"
                 />
