@@ -67,7 +67,7 @@ public class RecyclerAppointmentPatientAdapter extends FirebaseRecyclerAdapter<P
 
         else if(TextUtils.equals(model.getRejected(),"accepted") && TextUtils.equals(model.getVisibility(),"visible")){
             holder.doctorName.setText(model.getDoctorName());
-            holder.showText.setText( holder.doctorName.getText().toString() + "has accepted your appointment request");
+            holder.showText.setText( holder.doctorName.getText().toString() + "has accepted your appointment request.Contact 01733178283 to know details & time");
         }
     }
 
