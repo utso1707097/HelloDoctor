@@ -1,5 +1,7 @@
 package com.utsobro.hellodoctor;
 
+import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +20,9 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 
 public class RecyclerAppointmentPatientAdapter extends FirebaseRecyclerAdapter<PatientModel, RecyclerAppointmentPatientAdapter.patientViewHolder> {
-    RecyclerAppointmentPatientAdapter(FirebaseRecyclerOptions<PatientModel> options){
+    RecyclerAppointmentPatientAdapter( FirebaseRecyclerOptions<PatientModel> options){
         super(options);
+
     }
     @NonNull
     @Override
@@ -31,6 +34,7 @@ public class RecyclerAppointmentPatientAdapter extends FirebaseRecyclerAdapter<P
     @Override
     public void onBindViewHolder(@NonNull RecyclerAppointmentPatientAdapter.patientViewHolder holder, int position, @NonNull PatientModel model) {
         //holder.doctorImage.setImageResource(arrayDoctor.get(position).imageUrl);
+        //holder.appointmentLayout.removeAllViews();
         holder.doctorId = model.getDoctorId();
         holder.rejected = model.getRejected();
         holder.visibility = model.getVisibility();
@@ -67,7 +71,8 @@ public class RecyclerAppointmentPatientAdapter extends FirebaseRecyclerAdapter<P
 
         else if(TextUtils.equals(model.getRejected(),"accepted") && TextUtils.equals(model.getVisibility(),"visible")){
             holder.doctorName.setText(model.getDoctorName());
-            holder.showText.setText( holder.doctorName.getText().toString() + "has accepted your appointment request.Contact 01733178283 to know details & time");
+            holder.showText.setText( holder.doctorName.getText().toString() + "has accepted your appointment request.Pay 300 & Contact 01733178283 to know details & time");
+            holder.btnPayment.setVisibility(View.VISIBLE);
         }
     }
 
@@ -77,6 +82,7 @@ public class RecyclerAppointmentPatientAdapter extends FirebaseRecyclerAdapter<P
         ImageView doctorImage;
         String doctorId,rejected,visibility;
         LinearLayout appointmentLayout;
+        Button btnPayment;
         /*
         DatabaseReference rootRef,uidRef,patientRef;
         String uid;
@@ -88,7 +94,8 @@ public class RecyclerAppointmentPatientAdapter extends FirebaseRecyclerAdapter<P
             showText = itemView.findViewById(R.id.showMyText);
             doctorImage = itemView.findViewById(R.id.docImage);
             appointmentLayout = itemView.findViewById(R.id.appointmentPatientLayout);
-
+            btnPayment = itemView.findViewById(R.id.btnPayment);
+            Context context = btnPayment.getContext();
             /*
             if(rejected == "rejected" && visibility == "invisible"){
                 appointmentLayout.setVisibility(itemView.GONE);
@@ -99,6 +106,13 @@ public class RecyclerAppointmentPatientAdapter extends FirebaseRecyclerAdapter<P
                 showText.setText("You have an appointment with " +patientName.getText().toString());
             }
             */
+            btnPayment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent paymentIntent = new Intent(context,PaymentActivity.class);
+                    context.startActivity(paymentIntent);
+                }
+            });
 
         }
 

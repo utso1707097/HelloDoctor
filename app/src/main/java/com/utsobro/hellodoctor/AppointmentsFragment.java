@@ -61,6 +61,8 @@ public class AppointmentsFragment extends Fragment {
         super.onStart();
         adapter1.startListening();
         adapter.startListening();
+        adapter1.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 
     @Override

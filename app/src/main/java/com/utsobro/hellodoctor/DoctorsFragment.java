@@ -68,6 +68,7 @@ public class DoctorsFragment extends Fragment {
     public void onStart(){
         super.onStart();
         adapter.startListening();
+        adapter.notifyDataSetChanged();
     }
 
     @Override

@@ -67,4 +67,6 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
 
     implementation "androidx.recyclerview:recyclerview:1.2.0-alpha04"
+
+    implementation "com.razorpay:checkout:1.6.19"
 }
