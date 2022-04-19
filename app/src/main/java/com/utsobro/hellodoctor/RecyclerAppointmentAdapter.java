@@ -61,7 +61,9 @@ public class RecyclerAppointmentAdapter extends FirebaseRecyclerAdapter<Appointm
 
         else if(TextUtils.equals(model.getRejected(),"rejected") && TextUtils.equals(model.getVisibility(),"invisible")){
             holder.patientName.setText(model.getPatientName());
-            holder.appointmentLayout.setVisibility(View.GONE);
+            holder.acceptBtn.setVisibility(View.GONE);
+            holder.rejectBtn.setVisibility(View.GONE);
+            holder.showText.setText("You have rejected " +holder.patientName.getText().toString());
         }
 
         /*
@@ -144,12 +146,15 @@ public class RecyclerAppointmentAdapter extends FirebaseRecyclerAdapter<Appointm
                     uidRef = rootRef.child("AppointmentRequest").child(uid).child(patientUid);
                     patientRef = rootRef.child("AppointmentPatient").child(patientUid).child(uid); //patientUid = doctorUid
                     patientRef.child("visibility").setValue("invisible");
-                    patientRef.child("rejected").setValue("rejected");
+                    uidRef.child("rejected").setValue("rejected");
                     uidRef.child("visibility").setValue("invisible");
-                    uidRef.child("rejected").setValue("rejected").addOnSuccessListener(new OnSuccessListener<Void>() {
+                    patientRef.child("rejected").setValue("rejected")
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            appointmentLayout.setVisibility(view.GONE);
+                            acceptBtn.setVisibility(view.GONE);
+                            rejectBtn.setVisibility(view.GONE);
+                            showText.setText("You have rejected " +patientName.getText().toString());
                         }
                     });
                     //showText.setText(rejected + visibility);
